@@ -33,3 +33,12 @@ services:
     restart: unless-stopped
     volumes:
       - '/:/host:ro,rslave'
+  
+  nginx_exporter:
+    image: nginx/nginx-prometheus-exporter:0.9.0
+    container_name: nginx_exporter
+    command:
+      - -nginx.scrape-uri=http://192.168.24.124:8080/stub_status
+    restart: unless-stopped
+    ports:
+      - "9113:9113"
